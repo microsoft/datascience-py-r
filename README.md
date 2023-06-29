@@ -8,7 +8,7 @@
 |----------|-------|
 | *Categories* | Core, Languages |
 | *Image type* | Dockerfile |
-| *Published image* | ghcr.io/microsoft/... |
+| *Published image* | ghcr.io/microsoft/datascience-py-r |
 | *Published image architecture(s)* | x86-64 |
 | *Container host OS support* | Linux, macOS, Windows |
 | *Container OS* | Ubuntu |
