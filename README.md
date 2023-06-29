@@ -1,33 +1,68 @@
-# Project
+# Data Science with Python and R
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+## Summary
 
-As the maintainer of this project, please make a few updates:
+*Data science and Jupyter Notebooks development with Python and R. Installs dependencies from your requirements.txt file, and the Python, R, and Jupyter VS Code extensions.*
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+| Metadata | Value |  
+|----------|-------|
+| *Categories* | Core, Languages |
+| *Image type* | Dockerfile |
+| *Published image* | ghcr.io/microsoft/... |
+| *Published image architecture(s)* | x86-64 |
+| *Container host OS support* | Linux, macOS, Windows |
+| *Container OS* | Ubuntu |
+| *Languages, platforms* | Python, R, Jupyter |
 
-## Contributing
+## Using this image
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+### Configuration
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+You can directly reference pre-built versions of `.devcontainer/Dockerfile` by using the `image` property in `.devcontainer/devcontainer.json`.
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+Refer to [this guide](https://containers.dev/guide/dockerfile) for more details.
 
-## Trademarks
+#### Installing or updating Python utilities
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+This container installs all Python development utilities using [pipx](https://pipxproject.github.io/pipx/) to avoid impacting the global Python environment. You can use this same utility add additional utilities in an isolated environment. For example:
+
+```bash
+pipx install prospector
+```
+
+Note that if you change the version of Python from the default, you'll need to run a few commands to update the utilities and `pipx`. More on that next.
+
+#### Installing a different version of Python
+
+You can install different versions of Python by changing the Python feature version in the `devcontainer.json` file.
+
+You can install different versions of Python than the one in this image by running the following from a terminal (as covered in the [user FAQ](https://docs.anaconda.com/anaconda/user-guide/faq) for Anaconda):
+
+```bash
+conda install python=3.6
+pip install --no-cache-dir pipx
+pipx uninstall pipx
+pipx reinstall-all
+```
+
+See the [pipx documentation](https://pipxproject.github.io/pipx/docs/) for additional information.
+
+#### [Optional] Using the forwardPorts property
+
+By default, frameworks like Flask only listens to localhost inside the container. As a result, we recommend using the `forwardPorts` property (available in v0.98.0+) to make these ports available locally.
+
+```json
+"forwardPorts": [5000]
+```
+
+The `appPort` property [publishes](https://docs.docker.com/config/containers/container-networking/#published-ports) rather than forwards the port, so applications need to listen to `*` or `0.0.0.0` for the application to be accessible externally. This conflicts with the defaults of some Python frameworks, but fortunately the `forwardPorts` property does not have this limitation.
+
+### [Optional] Adding the contents of reqeuirements.txt to the image
+
+This image will automatically install dependencies from the `requirements.txt` file in the parent folder when the container is built. You can change this behavior by altering the `postCreateCommand` in the `devcontainer.json`.
+
+## License
+
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+Licensed under the MIT License. See [LICENSE](https://github.com/devcontainers/images/blob/main/LICENSE)

@@ -1,0 +1,14 @@
+{
+    "id": "datascience-python-r",
+    "version": "1.0.0",
+    "name": "Data Science with Python and R",
+    "description": "Data science development with Python and R tools. Installs dependencies from requirements.txt file, and the Python, Jupyter, and R extensions.",
+    "documentationURL": "https://github.com/microsoft/datascience-py-r",
+    "publisher": "Dev Container Spec Maintainers",
+    "licenseURL": "https://github.com/devcontainers/templates/blob/main/LICENSE",
+    "platforms": [
+        "Python",
+        "R",
+        "Jupyter"
+    ]
+}
