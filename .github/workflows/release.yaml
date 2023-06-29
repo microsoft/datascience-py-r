@@ -13,7 +13,7 @@ jobs:
         uses: devcontainers/action@v1
         with:
           publish-templates: "true"
-          base-path-to-templates: "./"
+          base-path-to-templates: "./src"
           generate-docs: "true"
 
         env:
@@ -37,7 +37,7 @@ jobs:
           message='Automated documentation update'
 
           # Add / update and commit
-          git add */README.md
+          git add */**/README.md
           git commit -m 'Automated documentation update [skip ci]' || export NO_UPDATES=true
 
           # Push
