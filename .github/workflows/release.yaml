@@ -18,12 +18,12 @@ jobs:
           generate-docs: "true"
 
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_DS_PY_R }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create PR for Documentation
         id: push_image_info
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_DS_PY_R }}
         run: |
           set -e
           echo "Start."
